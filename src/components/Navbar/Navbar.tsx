@@ -29,13 +29,15 @@ export default function Navbar({
       </div>
       
       <div className={styles.navButtons}>
-        <button
-          onClick={onClearStorage}
-          className={clsx(styles.navButton, styles.navButtonDanger)}
-          title="Clear all game data"
-        >
-          <Trash2 size={22} />
-        </button>
+        {import.meta.env.DEV && (
+          <button
+            onClick={onClearStorage}
+            className={clsx(styles.navButton, styles.navButtonDanger)}
+            title="Clear all game data (Development only)"
+          >
+            <Trash2 size={22} />
+          </button>
+        )}
         <button
           onClick={onShowStats}
           className={styles.navButton}
