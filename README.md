@@ -1,73 +1,103 @@
-# React + TypeScript + Vite
+# 🪄 Wizarding Worldle
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Harry Potter-themed Wordle-style game where you guess characters from the wizarding world! Built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## 🎮 How to Play
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Guess the Harry Potter character in 7 tries! Each guess reveals clues about the mystery character:
 
-## React Compiler
+- **Hogwarts House** - Which house they belong to
+- **Blood Status** - Pure-blood, Half-blood, or Muggle-born
+- **Species** - Human, Giant, House-elf, etc.
+- **First Appearance** - Which book/movie they first appeared in
+- **Occupation** - Their job or role in the wizarding world
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🏆 Features
 
-## Expanding the ESLint configuration
+- **Daily Challenge** - New character every day
+- **Smart Suggestions** - Autocomplete with character names
+- **Trophy System** - Unlock achievements as you play
+- **Statistics Tracking** - Track your win streak and accuracy
+- **Dark Mode** - Toggle between light and dark themes
+- **Responsive Design** - Works on desktop and mobile
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Live Demo
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Play the game at: [https://yourusername.github.io/wizarding-worldle/](https://yourusername.github.io/wizarding-worldle/)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Development
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/wizarding-worldle.git
+cd wizarding-worldle
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Build
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Build for production
+npm run build
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Preview production build
+npm run preview
 ```
+
+## 📦 Deployment
+
+This project is automatically deployed to GitHub Pages using GitHub Actions. Every push to the `main` branch triggers a new deployment.
+
+### Manual Deployment
+
+If you need to deploy manually:
+
+```bash
+# Build the project
+npm run build
+
+# The dist/ folder contains the built files
+# Upload the contents of dist/ to your hosting provider
+```
+
+## 🎯 Game Mechanics
+
+- **Green** = Correct match
+- **Yellow** = Partial match (for species like "Human/Giant")
+- **Gray** = Incorrect
+
+## 🏆 Trophy Categories
+
+- **Streak Trophies** - Win multiple games in a row
+- **Accuracy Trophies** - Win games in fewer guesses
+- **Variety Trophies** - Win with characters from different houses/species
+- **Special Trophies** - Play many games and show dedication
+
+## 🛠️ Tech Stack
+
+- **React 19** - UI framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **CSS Modules** - Scoped styling
+- **Lucide React** - Icon library
+- **GitHub Actions** - CI/CD
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
