@@ -424,11 +424,42 @@ function App() {
       result += `X/7\n\n`
     }
 
+    // Function to check for partial species match (same logic as GuessGrid)
+    const checkSpeciesMatch = (guessSpecies: string, mysterySpecies: string): 'correct' | 'partial' | 'incorrect' => {
+      // First check for exact match
+      if (guessSpecies === mysterySpecies) {
+        return 'correct'
+      }
+      
+      // Check for partial matches using the "Human/Giant" format
+      const guessLower = guessSpecies.toLowerCase()
+      const mysteryLower = mysterySpecies.toLowerCase()
+      
+      // Split by "/" to get individual species components
+      const guessSpeciesList = guessLower.split('/')
+      const mysterySpeciesList = mysteryLower.split('/')
+      
+      // Check if any species from guess matches any species from mystery
+      const hasPartialMatch = guessSpeciesList.some(guessSpecies => 
+        mysterySpeciesList.includes(guessSpecies)
+      )
+      
+      if (hasPartialMatch) {
+        return 'partial'
+      }
+      
+      return 'incorrect'
+    }
+
     // Generate emoji grid
     guesses.forEach((character) => {
       const houseEmoji = character.house === mysteryCharacter.house ? '🟩' : '⬜'
       const bloodStatusEmoji = character.bloodStatus === mysteryCharacter.bloodStatus ? '🟩' : '⬜'
-      const speciesEmoji = character.species === mysteryCharacter.species ? '🟩' : '⬜'
+      
+      // Handle species with partial match support
+      const speciesMatch = checkSpeciesMatch(character.species, mysteryCharacter.species)
+      const speciesEmoji = speciesMatch === 'correct' ? '🟩' : speciesMatch === 'partial' ? '🟨' : '⬜'
+      
       const firstAppearanceEmoji = character.firstAppearance === mysteryCharacter.firstAppearance ? '🟩' : '⬜'
       const occupationEmoji = character.occupation === mysteryCharacter.occupation ? '🟩' : '⬜'
       
