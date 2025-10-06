@@ -23,7 +23,7 @@ Guess the Harry Potter character in 7 tries! Each guess reveals clues about the 
 
 ## 🚀 Live Demo
 
-Play the game at: [https://yourusername.github.io/wizarding-worldle/](https://yourusername.github.io/wizarding-worldle/)
+Play the game at: [https://jasperraine.github.io/wizarding-worldle/](https://jasperraine.github.io/wizarding-worldle/)
 
 ## 🛠️ Development
 
@@ -36,7 +36,7 @@ Play the game at: [https://yourusername.github.io/wizarding-worldle/](https://yo
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/wizarding-worldle.git
+git clone https://github.com/JasperRaine/wizarding-worldle.git
 cd wizarding-worldle
 
 # Install dependencies
