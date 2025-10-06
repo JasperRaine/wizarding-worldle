@@ -1,0 +1,204 @@
+/* CSS Variables for theming */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #f0f0f0;
+  --bg-grid-empty: #f8f9fa;
+  --bg-grid-preview: #f0f0f0;
+  --bg-grid-incorrect: #f0f0f0;
+  --bg-grid-correct: #90EE90;
+  --bg-grid-partial: #FFD700;
+  --bg-button-hover: #f0f0f0;
+  --bg-button-danger-hover: #f8d7da;
+  
+  --text-primary: #000000;
+  --text-secondary: #666666;
+  --text-tertiary: #cccccc;
+  
+  --border-primary: #e0e0e0;
+  --border-secondary: #dee2e6;
+  --border-tertiary: #444444;
+  --border-dashed: #dee2e6;
+  
+  --button-border: #000000;
+  --button-danger: #dc3545;
+  
+  --transition: all 0.3s ease;
+}
+
+/* Dark mode variables */
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2a2a2a;
+  --bg-tertiary: #333333;
+  --bg-grid-empty: #2a2a2a;
+  --bg-grid-preview: #333333;
+  --bg-grid-incorrect: #333333;
+  --bg-grid-correct: #90EE90;
+  --bg-grid-partial: #B8860B;
+  --bg-button-hover: #333333;
+  --bg-button-danger-hover: #f8d7da;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-tertiary: #cccccc;
+  
+  --border-primary: #333333;
+  --border-secondary: #444444;
+  --border-tertiary: #444444;
+  --border-dashed: #444444;
+  
+  --button-border: #ffffff;
+  --button-danger: #dc3545;
+}
+
+/* Main container */
+.container {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: var(--transition);
+}
+
+
+/* Modal overlay */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: var(--bg-primary);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 24px;
+  color: var(--text-primary);
+}
+
+.modalCloseButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--bg-tertiary);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+}
+
+.modalBody {
+  line-height: 1.6;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+/* Settings specific */
+.settingsToggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.settingsToggleInfo {
+  flex: 1;
+}
+
+.settingsToggleTitle {
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.settingsToggleDescription {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.toggleSwitch {
+  width: 50px;
+  height: 28px;
+  border-radius: 14px;
+  border: none;
+  background-color: #ccc;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.toggleSwitch.active {
+  background-color: #4CAF50;
+}
+
+.toggleSwitchThumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.toggleSwitch.active .toggleSwitchThumb {
+  left: 24px;
+}
+
+/* Game over messages */
+.gameWon {
+  color: green;
+  font-weight: bold;
+  margin: 20px 0;
+  text-align: center;
+  animation: bounce 0.6s ease-in-out;
+}
+
+.gameLost {
+  color: red;
+  font-weight: bold;
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* Animations */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}

@@ -1,0 +1,22 @@
+/* Rules Modal Specific Styles */
+
+.rulesList {
+  margin-bottom: 16px;
+  padding-left: 20px;
+  color: var(--text-primary);
+}
+
+.rulesList li {
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.rulesList strong {
+  color: var(--text-primary);
+}
+
+.rulesGoodLuck {
+  margin-bottom: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}

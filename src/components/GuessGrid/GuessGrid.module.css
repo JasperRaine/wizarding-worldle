@@ -1,0 +1,232 @@
+.gridContainer {
+  margin-top: 20px;
+}
+
+.gridHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.gridRowContainer {
+  margin-bottom: 15px;
+}
+
+.characterName {
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--text-primary);
+  text-align: left;
+  margin-bottom: 5px;
+  padding-left: 5px;
+  min-height: 20px; /* Reserve space even when empty */
+  display: flex;
+  align-items: center;
+}
+
+.characterNameAnimating {
+  animation: fadeInName 0.8s ease-in-out both;
+}
+
+.gridRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.gridCell {
+  padding: 8px;
+  border-radius: 4px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+.gridCellEmpty {
+  background-color: var(--bg-grid-empty);
+  border: 2px dashed var(--border-dashed);
+}
+
+.gridCellPreview {
+  background-color: var(--bg-grid-preview);
+}
+
+.gridCellIncorrect {
+  background-color: var(--bg-grid-incorrect);
+}
+
+.gridCellPartial {
+  background-color: var(--bg-grid-partial);
+}
+
+.gridCellCorrect {
+  background-color: var(--bg-grid-correct);
+}
+
+.gridCellAnimating {
+  animation: flip 0.6s ease-in-out both;
+}
+
+.gridCellAnimatingCorrect {
+  animation: flipCorrect 0.6s ease-in-out both;
+}
+
+/* Staggered animations for each column */
+.gridCellAnimating0 {
+  animation: flip 0.6s ease-in-out 0.1s both;
+}
+
+.gridCellAnimating1 {
+  animation: flip 0.6s ease-in-out 0.2s both;
+}
+
+.gridCellAnimating2 {
+  animation: flip 0.6s ease-in-out 0.3s both;
+}
+
+.gridCellAnimating3 {
+  animation: flip 0.6s ease-in-out 0.4s both;
+}
+
+.gridCellAnimating4 {
+  animation: flip 0.6s ease-in-out 0.5s both;
+}
+
+.gridCellAnimatingCorrect0 {
+  animation: flipCorrect 0.6s ease-in-out 0.1s both;
+}
+
+.gridCellAnimatingCorrect1 {
+  animation: flipCorrect 0.6s ease-in-out 0.2s both;
+}
+
+.gridCellAnimatingCorrect2 {
+  animation: flipCorrect 0.6s ease-in-out 0.3s both;
+}
+
+.gridCellAnimatingCorrect3 {
+  animation: flipCorrect 0.6s ease-in-out 0.4s both;
+}
+
+.gridCellAnimatingCorrect4 {
+  animation: flipCorrect 0.6s ease-in-out 0.5s both;
+}
+
+/* Staggered partial match animations for each column */
+.gridCellAnimatingPartial0 {
+  animation: flipPartial 0.6s ease-in-out 0.1s both;
+}
+
+.gridCellAnimatingPartial1 {
+  animation: flipPartial 0.6s ease-in-out 0.2s both;
+}
+
+.gridCellAnimatingPartial2 {
+  animation: flipPartial 0.6s ease-in-out 0.3s both;
+}
+
+.gridCellAnimatingPartial3 {
+  animation: flipPartial 0.6s ease-in-out 0.4s both;
+}
+
+.gridCellAnimatingPartial4 {
+  animation: flipPartial 0.6s ease-in-out 0.5s both;
+}
+
+.gridCellContent {
+  animation: contentAppear 0.6s ease-in-out both;
+}
+
+/* Staggered content animations for each column */
+.gridCellContent0 {
+  animation: contentAppear 0.6s ease-in-out 0.1s both;
+}
+
+.gridCellContent1 {
+  animation: contentAppear 0.6s ease-in-out 0.2s both;
+}
+
+.gridCellContent2 {
+  animation: contentAppear 0.6s ease-in-out 0.3s both;
+}
+
+.gridCellContent3 {
+  animation: contentAppear 0.6s ease-in-out 0.4s both;
+}
+
+.gridCellContent4 {
+  animation: contentAppear 0.6s ease-in-out 0.5s both;
+}
+
+/* Animations */
+@keyframes flip {
+  0% {
+    transform: rotateX(0);
+  }
+  50% {
+    transform: rotateX(-90deg);
+  }
+  100% {
+    transform: rotateX(0);
+  }
+}
+
+@keyframes flipCorrect {
+  0% {
+    transform: rotateX(0);
+    background-color: var(--bg-grid-incorrect);
+  }
+  50% {
+    transform: rotateX(-90deg);
+    background-color: var(--bg-grid-incorrect);
+  }
+  100% {
+    transform: rotateX(0);
+    background-color: var(--bg-grid-correct);
+  }
+}
+
+@keyframes flipPartial {
+  0% {
+    transform: rotateX(0);
+    background-color: var(--bg-grid-incorrect);
+  }
+  50% {
+    transform: rotateX(-90deg);
+    background-color: var(--bg-grid-incorrect);
+  }
+  100% {
+    transform: rotateX(0);
+    background-color: var(--bg-grid-partial);
+  }
+}
+
+@keyframes contentAppear {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInName {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

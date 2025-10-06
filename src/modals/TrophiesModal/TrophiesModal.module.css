@@ -1,0 +1,104 @@
+/* Trophy Modal Specific Styles */
+
+.trophyStats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border-primary);
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.trophyCategory {
+  margin-bottom: 24px;
+}
+
+.categoryTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-primary);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border-primary);
+}
+
+.categoryProgress {
+  font-size: 14px;
+  font-weight: normal;
+  color: var(--text-secondary);
+}
+
+.trophyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.trophyItem {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-primary);
+  transition: var(--transition);
+}
+
+.trophyUnlocked {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+.trophyLocked {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-secondary);
+  opacity: 0.6;
+}
+
+.trophyEmoji {
+  font-size: 24px;
+  margin-right: 12px;
+  min-width: 32px;
+  text-align: center;
+}
+
+.trophyInfo {
+  flex: 1;
+}
+
+.trophyName {
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.trophyDescription {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
