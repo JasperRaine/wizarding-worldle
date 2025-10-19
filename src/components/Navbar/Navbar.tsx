@@ -21,52 +21,51 @@ export default function Navbar({
     <nav className={styles.nav}>
       <div className={styles.navTitle}>
         <h1 className={styles.title}>
-          Wizarding Worldle 🪄
+          Wizarding Worldle
         </h1>
-        <p className={styles.subtitle}>
-          Guess the Harry Potter character!
-        </p>
-      </div>
-      
-      <div className={styles.navButtons}>
-        {import.meta.env.DEV && (
+        <div className={styles.navButtons}>
+          {import.meta.env.DEV && (
+            <button
+              onClick={onClearStorage}
+              className={clsx(styles.navButton, styles.navButtonDanger)}
+              title="Clear all game data (Development only)"
+            >
+              <Trash2 size={22} />
+            </button>
+          )}
           <button
-            onClick={onClearStorage}
-            className={clsx(styles.navButton, styles.navButtonDanger)}
-            title="Clear all game data (Development only)"
+            onClick={onShowStats}
+            className={styles.navButton}
+            title="Statistics"
           >
-            <Trash2 size={22} />
+            <BarChart3 size={22} />
           </button>
-        )}
-        <button
-          onClick={onShowStats}
-          className={styles.navButton}
-          title="Statistics"
-        >
-          <BarChart3 size={22} />
-        </button>
-        <button
-          onClick={onShowTrophies}
-          className={styles.navButton}
-          title="Trophies & Achievements"
-        >
-          <Trophy size={22} />
-        </button>
-        <button
-          onClick={onShowSettings}
-          className={styles.navButton}
-          title="Settings"
-        >
-          <Settings size={22} />
-        </button>
-        <button
-          onClick={onShowRules}
-          className={styles.navButton}
-          title="How to Play"
-        >
-          <BookOpen size={22} />
-        </button>
+          <button
+            onClick={onShowTrophies}
+            className={styles.navButton}
+            title="Trophies & Achievements"
+          >
+            <Trophy size={22} />
+          </button>
+          <button
+            onClick={onShowSettings}
+            className={styles.navButton}
+            title="Settings"
+          >
+            <Settings size={22} />
+          </button>
+          <button
+            onClick={onShowRules}
+            className={styles.navButton}
+            title="How to Play"
+          >
+            <BookOpen size={22} />
+          </button>
+        </div>
       </div>
+      <p className={styles.subtitle}>
+        Guess the Harry Potter character!
+      </p>
     </nav>
   )
 }

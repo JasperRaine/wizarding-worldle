@@ -1,8 +1,5 @@
 /* Navigation Bar Styles */
 .nav {
-  display: flex;
-  justify-content: space-between; /* Title left, buttons right */
-  align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid var(--border-primary);
   margin-bottom: 20px;
@@ -11,7 +8,7 @@
 
 .navTitle {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: flex-start; /* Left-aligned title */
 }
 
