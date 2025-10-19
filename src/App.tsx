@@ -521,7 +521,7 @@ function App() {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} ${gameOver ? styles.gameOver : ''}`}>
         {/* Navigation Bar */}
         <Navbar
           onClearStorage={clearLocalStorage}

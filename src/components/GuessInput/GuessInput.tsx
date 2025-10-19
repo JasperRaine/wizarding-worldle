@@ -27,6 +27,20 @@ export default function GuessInput({
 
   return (
     <div className={styles.inputContainer}>
+      {showSuggestions && filteredCharacters.length > 0 && (
+        <div className={styles.suggestions}>
+          {filteredCharacters.map((character, index) => (
+            <div
+              key={index}
+              onClick={() => onSelectCharacter(character)}
+              className={styles.suggestionItem}
+            >
+              {character.name}
+            </div>
+          ))}
+        </div>
+      )}
+      
       <div className={styles.inputRow}>
         <input 
           type="text" 
@@ -42,20 +56,6 @@ export default function GuessInput({
           Submit
         </Button>
       </div>
-      
-      {showSuggestions && filteredCharacters.length > 0 && (
-        <div className={styles.suggestions}>
-          {filteredCharacters.map((character, index) => (
-            <div
-              key={index}
-              onClick={() => onSelectCharacter(character)}
-              className={styles.suggestionItem}
-            >
-              {character.name}
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   )
 }

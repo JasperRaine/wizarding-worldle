@@ -58,6 +58,11 @@
   color: var(--text-primary);
   min-height: 100vh;
   transition: var(--transition);
+  padding-bottom: 120px; /* Add space for fixed search bar */
+}
+
+.container.gameOver {
+  padding-bottom: 120px; /* Add padding when game is over for game over messages */
 }
 
 
@@ -178,16 +183,32 @@
 .gameWon {
   color: green;
   font-weight: bold;
-  margin: 20px 0;
   text-align: center;
   animation: bounce 0.6s ease-in-out;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-primary);
+  padding: 20px;
+  border-top: 2px solid green;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 101; /* Above the search bar */
 }
 
 .gameLost {
   color: red;
   font-weight: bold;
-  margin: 20px 0;
   text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-primary);
+  padding: 20px;
+  border-top: 2px solid red;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 101; /* Above the search bar */
 }
 
 /* Animations */
