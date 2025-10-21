@@ -1,14 +1,7 @@
 import { useEffect, useState } from 'react'
 import Modal from '../../components/Modal/Modal'
 import styles from './TrophyUnlockModal.module.css'
-
-interface Trophy {
-  id: string
-  name: string
-  description: string
-  emoji: string
-  category: 'streak' | 'accuracy' | 'variety' | 'special'
-}
+import type { Trophy } from '../../utils/trophyUtils'
 
 interface TrophyUnlockModalProps {
   isOpen: boolean
@@ -46,9 +39,8 @@ export default function TrophyUnlockModal({
   const getCategoryEmoji = (category: Trophy['category']) => {
     switch (category) {
       case 'streak': return '🔥'
-      case 'accuracy': return '🎯'
-      case 'variety': return '🌟'
-      case 'special': return '⭐'
+      case 'total_wins': return '🏆'
+      case 'misc': return '⭐'
       default: return '🏆'
     }
   }

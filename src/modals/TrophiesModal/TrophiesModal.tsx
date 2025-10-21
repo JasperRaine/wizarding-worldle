@@ -36,10 +36,9 @@ export default function TrophiesModal({ isOpen, onClose, gameHistory }: Trophies
   }
 
   const categories = [
-    { key: 'streak' as const, name: 'Streaks', emoji: '🔥' },
-    { key: 'accuracy' as const, name: 'Accuracy', emoji: '🎯' },
-    { key: 'variety' as const, name: 'Variety', emoji: '🌟' },
-    { key: 'special' as const, name: 'Special', emoji: '⭐' }
+    { key: 'streak' as const, name: 'Streak', emoji: '🔥' },
+    { key: 'total_wins' as const, name: 'Total Wins', emoji: '🏆' },
+    { key: 'misc' as const, name: 'Misc', emoji: '⭐' }
   ]
 
   return (

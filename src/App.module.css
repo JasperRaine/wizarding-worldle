@@ -211,6 +211,14 @@
   z-index: 101; /* Above the search bar */
 }
 
+/* Donation message styles */
+.donationMessage {
+  margin-top: 15px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
 /* Animations */
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
