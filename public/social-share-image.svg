@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200">
+  <!-- Background circle with magical gradient -->
+  <defs>
+    <linearGradient id="magicalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="600" cy="600" r="550" fill="url(#magicalGradient)" stroke="#4a5568" stroke-width="20"/>
+  
+  <!-- Magical sparkles/stars - moved to avoid W -->
+  <g fill="url(#goldGradient)" opacity="0.9">
+    <polygon points="225,150 262,262 375,262 300,337 337,450 225,375 112,450 150,337 75,262 187,262" />
+    <polygon points="975,150 1012,262 1125,262 1050,337 1087,450 975,375 862,450 900,337 825,262 937,262" />
+    <polygon points="150,900 187,1012 300,1012 225,1087 262,1200 150,1125 37,1200 75,1087 0,1012 112,1012" />
+    <polygon points="1050,900 1087,1012 1200,1012 1125,1087 1162,1200 1050,1125 937,1200 975,1087 900,1012 1012,1012" />
+  </g>
+  
+  <!-- Single centered W -->
+  <text x="600" y="800" font-family="Times New Roman, serif" font-size="600" font-weight="normal" 
+        text-anchor="middle" fill="url(#goldGradient)" stroke="#4a5568" stroke-width="12">W</text>
+  
+  <!-- Magical border effect -->
+  <circle cx="600" cy="600" r="520" fill="none" stroke="url(#goldGradient)" 
+          stroke-width="15" opacity="0.6"/>
+</svg>

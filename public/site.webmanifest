@@ -1,0 +1,32 @@
+{
+  "name": "Wizarding Worldle",
+  "short_name": "Wizarding Worldle",
+  "description": "Guess the Harry Potter character in 6 tries! A magical Wordle-style game featuring characters from the Wizarding World.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a5568",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon-single-w.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/social-share-image.svg",
+      "sizes": "1200x1200",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["games", "entertainment", "puzzle"],
+  "lang": "en",
+  "scope": "/",
+  "prefer_related_applications": false
+}
