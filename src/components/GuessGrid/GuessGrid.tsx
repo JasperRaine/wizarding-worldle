@@ -1,4 +1,5 @@
 import { type Character } from '../../characters'
+import { useEffect, useRef, useState } from 'react'
 import styles from './GuessGrid.module.css'
 import clsx from 'clsx'
 
@@ -19,6 +20,49 @@ export default function GuessGrid({
   animatingRow,
   mysteryCharacter
 }: GuessGridProps) {
+  const rowRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [shouldAnimateRow, setShouldAnimateRow] = useState<number | null>(null)
+
+  // Check if row is in viewport and scroll if needed before starting animation
+  useEffect(() => {
+    if (animatingRow !== null && rowRefs.current[animatingRow]) {
+      const rowElement = rowRefs.current[animatingRow]
+      if (!rowElement) return
+
+      // Check if row is in viewport (with some padding for better UX)
+      const rect = rowElement.getBoundingClientRect()
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight
+      const padding = 100 // Padding to ensure row is comfortably visible
+      
+      const isInViewport = (
+        rect.top >= -padding &&
+        rect.bottom <= viewportHeight + padding
+      )
+
+      if (!isInViewport) {
+        // Scroll row into view first
+        rowElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest'
+        })
+        
+        // Wait for scroll to complete before starting animation
+        // Scroll animation typically takes ~300-500ms, so wait a bit longer
+        const scrollTimeout = setTimeout(() => {
+          setShouldAnimateRow(animatingRow)
+        }, 500) // Adjust timing based on scroll duration
+
+        return () => clearTimeout(scrollTimeout)
+      } else {
+        // Row is already in view, start animation immediately
+        setShouldAnimateRow(animatingRow)
+      }
+    } else {
+      // No row to animate, clear the animation state
+      setShouldAnimateRow(null)
+    }
+  }, [animatingRow])
   // Function to check for partial species match
   const checkSpeciesMatch = (guessSpecies: string, mysterySpecies: string): 'correct' | 'partial' | 'incorrect' => {
     // First check for exact match
@@ -75,7 +119,8 @@ export default function GuessGrid({
         const character = guesses[index]
         const isCurrentRow = index === attempts && !gameOver
         const isPreviewRow = Boolean(isCurrentRow && previewCharacter && !character)
-        const isAnimatingRow = Boolean(animatingRow === index)
+        // Use shouldAnimateRow instead of animatingRow to delay animation until scroll completes
+        const isAnimatingRow = Boolean(shouldAnimateRow === index)
         const displayCharacter = character || (isCurrentRow && previewCharacter && !isPreviewRow && !isAnimatingRow ? previewCharacter : null)
         const isEmpty = !displayCharacter
         
@@ -83,6 +128,9 @@ export default function GuessGrid({
           <div 
             key={index} 
             className={styles.gridRowContainer}
+            ref={(el) => {
+              rowRefs.current[index] = el
+            }}
           >
             {/* Character Name Above Row - Always render to maintain consistent spacing */}
             <div className={clsx(styles.characterName, {
