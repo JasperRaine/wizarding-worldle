@@ -1,4 +1,5 @@
 import { type Character } from '../../characters'
+import { useEffect, useRef } from 'react'
 import styles from './GuessGrid.module.css'
 import clsx from 'clsx'
 
@@ -9,6 +10,7 @@ interface GuessGridProps {
   previewCharacter: Character | null
   animatingRow: number | null
   mysteryCharacter: Character
+  inputFocused?: boolean
 }
 
 export default function GuessGrid({
@@ -17,8 +19,28 @@ export default function GuessGrid({
   gameOver,
   previewCharacter,
   animatingRow,
-  mysteryCharacter
+  mysteryCharacter,
+  inputFocused = false
 }: GuessGridProps) {
+  const currentRowRef = useRef<HTMLDivElement>(null)
+
+  // Smoothly scroll current row into view when keyboard opens
+  useEffect(() => {
+    if (inputFocused && currentRowRef.current && !gameOver) {
+      // Small delay to allow keyboard animation to start, then scroll smoothly
+      const timeoutId = setTimeout(() => {
+        requestAnimationFrame(() => {
+          currentRowRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest'
+          })
+        })
+      }, 100) // Small delay for keyboard animation
+
+      return () => clearTimeout(timeoutId)
+    }
+  }, [inputFocused, gameOver])
   // Function to check for partial species match
   const checkSpeciesMatch = (guessSpecies: string, mysterySpecies: string): 'correct' | 'partial' | 'incorrect' => {
     // First check for exact match
@@ -80,7 +102,11 @@ export default function GuessGrid({
         const isEmpty = !displayCharacter
         
         return (
-          <div key={index} className={styles.gridRowContainer}>
+          <div 
+            key={index} 
+            className={styles.gridRowContainer}
+            ref={isCurrentRow ? currentRowRef : null}
+          >
             {/* Character Name Above Row - Always render to maintain consistent spacing */}
             <div className={clsx(styles.characterName, {
               [styles.characterNameAnimating]: displayCharacter && (isAnimatingRow || (index === attempts - 1 && gameOver))

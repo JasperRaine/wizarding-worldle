@@ -65,6 +65,7 @@ function App() {
   const [showTrophyUnlockModal, setShowTrophyUnlockModal] = useState(false)
   const [unlockedTrophies, setUnlockedTrophies] = useState<Trophy[]>([])
   const [previousTrophies, setPreviousTrophies] = useState<Trophy[]>([])
+  const [inputFocused, setInputFocused] = useState(false)
 
   const [showGameOverMessage, setShowGameOverMessage] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(false)
@@ -527,6 +528,7 @@ function App() {
           previewCharacter={previewCharacter}
           animatingRow={animatingRow}
           mysteryCharacter={mysteryCharacter}
+          inputFocused={inputFocused}
         />
         
         <GuessInput
@@ -538,6 +540,7 @@ function App() {
           onSubmit={handleSubmit}
           onSelectCharacter={selectCharacter}
           onShowSuggestions={setShowSuggestions}
+          onInputFocusChange={setInputFocused}
         />
         {showGameOverMessage && gameWon && (
           <GameWonMessage

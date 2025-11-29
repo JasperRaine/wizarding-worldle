@@ -29,6 +29,10 @@
   transition: var(--transition);
   font-family: inherit;
   color: var(--text-primary);
+  /* Prevent zoom on focus (iOS) */
+  font-size: 16px;
+  /* Prevent viewport jumping */
+  touch-action: manipulation;
 }
 
 .input:focus {

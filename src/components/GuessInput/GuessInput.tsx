@@ -11,6 +11,7 @@ interface GuessInputProps {
   onSubmit: () => void
   onSelectCharacter: (character: Character) => void
   onShowSuggestions: (show: boolean) => void
+  onInputFocusChange?: (focused: boolean) => void
 }
 
 export default function GuessInput({
@@ -21,7 +22,8 @@ export default function GuessInput({
   onGuessChange,
   onSubmit,
   onSelectCharacter,
-  onShowSuggestions
+  onShowSuggestions,
+  onInputFocusChange
 }: GuessInputProps) {
   if (gameOver) return null
 
@@ -48,8 +50,17 @@ export default function GuessInput({
           onChange={(e) => onGuessChange(e.target.value)}
           placeholder="Enter character name..."
           onKeyPress={(e) => e.key === 'Enter' && onSubmit()}
-          onBlur={() => setTimeout(() => onShowSuggestions(false), 200)}
-          onFocus={() => guess.length > 0 && onShowSuggestions(true)}
+          onFocus={() => {
+            onInputFocusChange?.(true)
+            // Don't scroll input itself, let the grid row scroll instead
+            if (guess.length > 0) {
+              onShowSuggestions(true);
+            }
+          }}
+          onBlur={() => {
+            onInputFocusChange?.(false)
+            setTimeout(() => onShowSuggestions(false), 200)
+          }}
           className={styles.input}
         />
         <Button onClick={onSubmit} color="primary">
