@@ -33,6 +33,7 @@ export default function GuessGrid({
       const rect = rowElement.getBoundingClientRect()
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight
       const padding = 20 // Small padding for better UX
+      const rowHeight = rect.height
       
       // Row is fully in view if both top and bottom are within viewport with padding
       const isFullyInViewport = (
@@ -41,31 +42,30 @@ export default function GuessGrid({
       )
 
       if (!isFullyInViewport) {
-        // Calculate how much we need to scroll to make the row fully visible
-        let scrollOffset = 0
+        // Calculate the exact scroll position needed to make the row fully visible
+        const currentScrollY = window.scrollY || document.documentElement.scrollTop
+        let targetScrollY = currentScrollY
         
         if (rect.top < padding) {
-          // Top is cut off, scroll up
-          scrollOffset = rect.top - padding
+          // Top is cut off, scroll up to show the top
+          targetScrollY = currentScrollY + rect.top - padding
         } else if (rect.bottom > viewportHeight - padding) {
-          // Bottom is cut off, scroll down
-          scrollOffset = rect.bottom - (viewportHeight - padding)
+          // Bottom is cut off, scroll down to show the bottom
+          targetScrollY = currentScrollY + (rect.bottom - (viewportHeight - padding))
         }
         
-        // Scroll row into view first, ensuring it's fully visible
-        if (scrollOffset !== 0) {
-          window.scrollBy({
-            top: scrollOffset,
-            behavior: 'smooth'
-          })
-        } else {
-          // Fallback: use scrollIntoView if calculation didn't work
-          rowElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center',
-            inline: 'nearest'
-          })
+        // If row is taller than viewport, center it
+        if (rowHeight > viewportHeight - (padding * 2)) {
+          // Row is taller than viewport, center it
+          const rowTop = rowElement.offsetTop
+          targetScrollY = rowTop - (viewportHeight - rowHeight) / 2
         }
+        
+        // Scroll to the calculated position
+        window.scrollTo({
+          top: targetScrollY,
+          behavior: 'smooth'
+        })
         
         // Wait for scroll to complete before starting animation
         // Scroll animation typically takes ~300-500ms, so wait a bit longer
