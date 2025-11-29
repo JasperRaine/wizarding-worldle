@@ -324,6 +324,7 @@ function App() {
     setAnimatingRow(attempts)
     
     // Clear the animating row after animation completes
+    // Animation takes ~1.1s total (0.6s duration + 0.5s max delay for last column)
     setTimeout(() => {
       setAnimatingRow(null)
       
@@ -380,7 +381,7 @@ function App() {
         // Refresh game history state
         refreshGameHistory()
       }
-    }, 1000) // Animation duration + buffer
+    }, 1200) // Animation duration (1.1s) + small buffer to ensure smooth completion
   }
 
 

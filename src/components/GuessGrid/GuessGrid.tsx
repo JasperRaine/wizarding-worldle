@@ -29,37 +29,71 @@ export default function GuessGrid({
       const rowElement = rowRefs.current[animatingRow]
       if (!rowElement) return
 
-      // Check if row is in viewport (with some padding for better UX)
+      // Check if row is fully in viewport (entire row must be visible)
       const rect = rowElement.getBoundingClientRect()
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight
-      const padding = 100 // Padding to ensure row is comfortably visible
+      const padding = 20 // Small padding for better UX
       
-      const isInViewport = (
-        rect.top >= -padding &&
-        rect.bottom <= viewportHeight + padding
+      // Row is fully in view if both top and bottom are within viewport with padding
+      const isFullyInViewport = (
+        rect.top >= padding &&
+        rect.bottom <= viewportHeight - padding
       )
 
-      if (!isInViewport) {
-        // Scroll row into view first
-        rowElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'nearest'
-        })
+      if (!isFullyInViewport) {
+        // Calculate how much we need to scroll to make the row fully visible
+        let scrollOffset = 0
+        
+        if (rect.top < padding) {
+          // Top is cut off, scroll up
+          scrollOffset = rect.top - padding
+        } else if (rect.bottom > viewportHeight - padding) {
+          // Bottom is cut off, scroll down
+          scrollOffset = rect.bottom - (viewportHeight - padding)
+        }
+        
+        // Scroll row into view first, ensuring it's fully visible
+        if (scrollOffset !== 0) {
+          window.scrollBy({
+            top: scrollOffset,
+            behavior: 'smooth'
+          })
+        } else {
+          // Fallback: use scrollIntoView if calculation didn't work
+          rowElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest'
+          })
+        }
         
         // Wait for scroll to complete before starting animation
         // Scroll animation typically takes ~300-500ms, so wait a bit longer
         const scrollTimeout = setTimeout(() => {
           setShouldAnimateRow(animatingRow)
+          
+          // Clear animation state after animation fully completes
+          // Longest animation: 0.5s delay + 0.6s duration = 1.1s total
+          setTimeout(() => {
+            setShouldAnimateRow(null)
+          }, 1200) // Wait for full animation + buffer
         }, 500) // Adjust timing based on scroll duration
 
         return () => clearTimeout(scrollTimeout)
       } else {
         // Row is already in view, start animation immediately
         setShouldAnimateRow(animatingRow)
+        
+        // Clear animation state after animation fully completes
+        // Longest animation: 0.5s delay + 0.6s duration = 1.1s total
+        const clearAnimationTimeout = setTimeout(() => {
+          setShouldAnimateRow(null)
+        }, 1200) // Wait for full animation + buffer
+        
+        return () => clearTimeout(clearAnimationTimeout)
       }
     } else {
-      // No row to animate, clear the animation state
+      // No row to animate, clear the animation state immediately
       setShouldAnimateRow(null)
     }
   }, [animatingRow])
