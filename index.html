@@ -38,11 +38,24 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Wizarding Worldle" />
     
-    <!-- Favicon -->
+    <!-- Favicon - Multiple formats for better browser and search engine support -->
+    <!-- ICO format for older browsers -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/svg+xml" href="/favicon-single-w.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/favicon-single-w.svg" />
+    
+    <!-- SVG format for modern browsers -->
+    <link rel="icon" type="image/svg+xml" href="/favicon-single-w.svg" />
+    
+    <!-- PNG formats for Google search results and better compatibility -->
+    <!-- Google recommends at least 48x48, but 192x192 is preferred -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png" />
+    
+    <!-- Apple touch icon for iOS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    
+    <!-- Web manifest for PWA -->
     <link rel="manifest" href="/site.webmanifest" />
     
     <!-- Preconnect to external domains -->
