@@ -192,7 +192,7 @@ export const calculateTrophies = (gameHistory: GameHistory): Trophy[] => {
     {
       id: 'the_trio',
       name: 'The Trio',
-      description: 'Correctly guess the trio (Harry Potter, Hermione Granger, Ron Weasley)',
+      description: 'Correctly guess the trio',
       emoji: '👥',
       unlocked: checkTrio(),
       category: 'misc'
