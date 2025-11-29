@@ -121,7 +121,13 @@ export default function GuessGrid({
         const isPreviewRow = Boolean(isCurrentRow && previewCharacter && !character)
         // Use shouldAnimateRow instead of animatingRow to delay animation until scroll completes
         const isAnimatingRow = Boolean(shouldAnimateRow === index)
-        const displayCharacter = character || (isCurrentRow && previewCharacter && !isPreviewRow && !isAnimatingRow ? previewCharacter : null)
+        // If this row should animate but hasn't started yet (waiting for scroll), keep it empty
+        const isWaitingForScroll = animatingRow === index && shouldAnimateRow !== index
+        const displayCharacter = character && !isWaitingForScroll 
+          ? character 
+          : (isCurrentRow && previewCharacter && !isPreviewRow && !isAnimatingRow && !isWaitingForScroll 
+              ? previewCharacter 
+              : null)
         const isEmpty = !displayCharacter
         
         return (
