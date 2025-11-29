@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { type Character } from '../../characters'
 import Button from '../Button/Button'
 import styles from './GuessInput.module.css'
@@ -25,10 +26,45 @@ export default function GuessInput({
   onShowSuggestions,
   onInputFocusChange
 }: GuessInputProps) {
+  const [keyboardHeight, setKeyboardHeight] = useState(0)
+
+  useEffect(() => {
+    // Use Visual Viewport API to detect keyboard height and keep input above it
+    if (typeof window === 'undefined' || !window.visualViewport) {
+      return // Fallback for browsers without Visual Viewport API support
+    }
+
+    const viewport = window.visualViewport
+    
+    const updateKeyboardHeight = () => {
+      // Calculate keyboard height as difference between window and visual viewport
+      const heightDiff = window.innerHeight - viewport.height
+      // Only consider it a keyboard if difference is significant (> 50px)
+      // This prevents false positives from small viewport changes
+      setKeyboardHeight(heightDiff > 50 ? heightDiff : 0)
+    }
+
+    // Initial calculation
+    updateKeyboardHeight()
+
+    // Listen for viewport resize (keyboard open/close)
+    // 'resize' event fires when keyboard opens/closes, 'scroll' is not needed here
+    viewport.addEventListener('resize', updateKeyboardHeight)
+
+    return () => {
+      viewport.removeEventListener('resize', updateKeyboardHeight)
+    }
+  }, [])
+
   if (gameOver) return null
 
   return (
-    <div className={styles.inputContainer}>
+    <div 
+      className={styles.inputContainer}
+      style={{
+        bottom: keyboardHeight > 0 ? `${keyboardHeight}px` : undefined
+      }}
+    >
       {showSuggestions && filteredCharacters.length > 0 && (
         <div className={styles.suggestions}>
           {filteredCharacters.map((character, index) => (
@@ -52,7 +88,6 @@ export default function GuessInput({
           onKeyPress={(e) => e.key === 'Enter' && onSubmit()}
           onFocus={() => {
             onInputFocusChange?.(true)
-            // Don't scroll input itself, let the grid row scroll instead
             if (guess.length > 0) {
               onShowSuggestions(true);
             }
