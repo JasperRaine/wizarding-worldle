@@ -244,8 +244,10 @@ function App() {
     const history = loadGameHistory()
     setGameHistory(history)
     
-    // Capture trophy state at game start
-    captureTrophyStateAtGameStart()
+    // Initialize previous trophies using the loaded history (not state)
+    // This ensures we capture the trophy state before any new game is played
+    const initialTrophies = calculateTrophies(history)
+    setPreviousTrophies(initialTrophies)
 
     // Load dark mode
     const darkMode = loadDarkMode()
@@ -259,12 +261,6 @@ function App() {
       root.setAttribute('data-theme', isDarkMode ? 'dark' : 'light')
     }
   }, [isDarkMode])
-
-  // Initialize previous trophies only once on mount
-  useEffect(() => {
-    const initialTrophies = calculateTrophies(gameHistory)
-    setPreviousTrophies(initialTrophies)
-  }, []) // Only run once on mount
 
   // Function to refresh game history (call after adding a new game)
   const refreshGameHistory = () => {
@@ -406,12 +402,6 @@ function App() {
   }
 
   const mysteryCharacter = getTodaysMysteryCharacter()
-
-  // Function to capture trophy state at the start of a new game
-  const captureTrophyStateAtGameStart = () => {
-    const currentTrophies = calculateTrophies(gameHistory)
-    setPreviousTrophies(currentTrophies)
-  }
 
   // Function to generate shareable results like Wordle
   function generateShareResults(): string {
