@@ -76,7 +76,6 @@
 .trophyLocked {
   background-color: var(--bg-tertiary);
   border-color: var(--border-secondary);
-  opacity: 0.6;
 }
 
 .trophyEmoji {
@@ -84,6 +83,8 @@
   margin-right: 12px;
   min-width: 32px;
   text-align: center;
+  flex-shrink: 0;
+  align-self: flex-start;
 }
 
 .trophyInfo {
@@ -101,4 +102,149 @@
   font-size: 12px;
   color: var(--text-secondary);
   line-height: 1.4;
+}
+
+/* Trophy Progress (inline) */
+.trophyProgressContainer {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-primary);
+}
+
+.trophyProgressText {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.progressBarContainer {
+  width: 100%;
+  height: 6px;
+  background-color: var(--bg-tertiary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.trophyNext {
+  border: 2px solid #4CAF50;
+  background-color: var(--bg-secondary);
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+
+.trophyExpandable {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.trophyHeader {
+  position: relative;
+}
+
+.trophyHeaderClickable {
+  cursor: pointer;
+  padding-right: 24px; /* Space for the chevron */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.trophyHeaderClickable:hover {
+  opacity: 0.8;
+}
+
+.expandIcon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease;
+}
+
+.expandIcon.expanded {
+  transform: rotate(90deg);
+}
+
+.trophyCharactersList {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.trophyCharactersListExpanding {
+  animation: slideDown 0.3s ease-out;
+}
+
+.trophyCharactersListCollapsing {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    max-height: 500px;
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+.characterItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 4px 0;
+}
+
+.characterGuessed {
+  color: var(--text-primary);
+}
+
+.characterCheck {
+  font-size: 14px;
+  font-weight: bold;
+  min-width: 16px;
+  text-align: center;
+}
+
+.characterGuessed .characterCheck {
+  color: #4CAF50;
+}
+
+.characterName {
+  flex: 1;
 }

@@ -257,3 +257,176 @@ export const getNewlyUnlockedTrophies = (
     trophy.unlocked && !previousUnlockedIds.has(trophy.id)
   )
 }
+
+export interface NextTrophyProgress {
+  trophy: Trophy | null
+  current: number
+  required: number
+  progress: string // e.g., "1/3"
+}
+
+export const getNextTrophyProgress = (
+  gameHistory: GameHistory,
+  category: 'streak' | 'total_wins'
+): NextTrophyProgress => {
+  const trophies = calculateTrophies(gameHistory)
+  const categoryTrophies = trophies.filter(t => t.category === category)
+  
+  // Find the first locked trophy in this category
+  const nextTrophy = categoryTrophies.find(t => !t.unlocked)
+  
+  if (!nextTrophy) {
+    // All trophies in this category are unlocked
+    return {
+      trophy: null,
+      current: 0,
+      required: 0,
+      progress: 'Complete'
+    }
+  }
+  
+  // Extract the number from the trophy ID
+  const extractNumber = (id: string): number => {
+    const match = id.match(/\d+/)
+    return match ? parseInt(match[0], 10) : 0
+  }
+  
+  const required = extractNumber(nextTrophy.id)
+  let current = 0
+  
+  if (category === 'streak') {
+    current = gameHistory.maxStreak
+  } else if (category === 'total_wins') {
+    current = gameHistory.wins
+  }
+  
+  return {
+    trophy: nextTrophy,
+    current,
+    required,
+    progress: `${current}/${required}`
+  }
+}
+
+export const getMiscTrophyProgress = (
+  gameHistory: GameHistory,
+  trophyId: string
+): { current: number; required: number; progress: string } | null => {
+  const wonGames = gameHistory.games.filter(game => game.won)
+  const characterNames = new Set(wonGames.map(game => game.mysteryCharacter.name))
+  
+  switch (trophyId) {
+    case 'perfect_game': {
+      const perfectGames = gameHistory.games.filter(game => game.won && game.attempts === 1)
+      return {
+        current: perfectGames.length,
+        required: 1,
+        progress: `${perfectGames.length}/1`
+      }
+    }
+    
+    case 'the_trio': {
+      const trio = ['Harry Potter', 'Hermione Granger', 'Ron Weasley']
+      const found = trio.filter(name => characterNames.has(name))
+      return {
+        current: found.length,
+        required: 3,
+        progress: `${found.length}/3`
+      }
+    }
+    
+    case 'the_weasley_family': {
+      const weasleyNames = ['Arthur Weasley', 'Molly Weasley', 'Bill Weasley', 'Charlie Weasley', 
+                           'Percy Weasley', 'Fred Weasley', 'George Weasley', 'Ron Weasley', 'Ginny Weasley']
+      const found = weasleyNames.filter(name => characterNames.has(name))
+      return {
+        current: found.length,
+        required: 9,
+        progress: `${found.length}/9`
+      }
+    }
+    
+    case 'the_weasley_twins': {
+      const twins = ['Fred Weasley', 'George Weasley']
+      const found = twins.filter(name => characterNames.has(name))
+      return {
+        current: found.length,
+        required: 2,
+        progress: `${found.length}/2`
+      }
+    }
+    
+    case 'the_marauders': {
+      const marauders = ['James Potter', 'Sirius Black', 'Remus Lupin', 'Peter Pettigrew']
+      const found = marauders.filter(name => characterNames.has(name))
+      return {
+        current: found.length,
+        required: 4,
+        progress: `${found.length}/4`
+      }
+    }
+    
+    case 'the_malfoy_family': {
+      const malfoys = ['Lucius Malfoy', 'Narcissa Malfoy', 'Draco Malfoy']
+      const found = malfoys.filter(name => characterNames.has(name))
+      return {
+        current: found.length,
+        required: 3,
+        progress: `${found.length}/3`
+      }
+    }
+    
+    case 'last_chance': {
+      const lastChanceWins = gameHistory.games.filter(game => game.won && game.attempts === 6)
+      return {
+        current: lastChanceWins.length,
+        required: 3,
+        progress: `${lastChanceWins.length}/3`
+      }
+    }
+    
+    default:
+      return null
+  }
+}
+
+export interface TrophyCharacter {
+  name: string
+  guessed: boolean
+}
+
+export const getTrophyCharacters = (
+  gameHistory: GameHistory,
+  trophyId: string
+): TrophyCharacter[] | null => {
+  const wonGames = gameHistory.games.filter(game => game.won)
+  const characterNames = new Set(wonGames.map(game => game.mysteryCharacter.name))
+  
+  let characterList: string[] = []
+  
+  switch (trophyId) {
+    case 'the_trio':
+      characterList = ['Harry Potter', 'Hermione Granger', 'Ron Weasley']
+      break
+    case 'the_weasley_family':
+      characterList = ['Arthur Weasley', 'Molly Weasley', 'Bill Weasley', 'Charlie Weasley', 
+                       'Percy Weasley', 'Fred Weasley', 'George Weasley', 'Ron Weasley', 'Ginny Weasley']
+      break
+    case 'the_weasley_twins':
+      characterList = ['Fred Weasley', 'George Weasley']
+      break
+    case 'the_marauders':
+      characterList = ['James Potter', 'Sirius Black', 'Remus Lupin', 'Peter Pettigrew']
+      break
+    case 'the_malfoy_family':
+      characterList = ['Lucius Malfoy', 'Narcissa Malfoy', 'Draco Malfoy']
+      break
+    default:
+      return null
+  }
+  
+  return characterList.map(name => ({
+    name,
+    guessed: characterNames.has(name)
+  }))
+}
